@@ -1,11 +1,54 @@
-<ion-content [fullscreen]="true">
-  <ion-header>
-    <ion-toolbar>
-      <ion-title size="medium">iGastei</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-header>
+  <ion-toolbar color="primary" class="ion-margin-2">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Início</ion-title>
+    <ion-text slot="end" class="ion-margin-end">
+      <h5 class="ion-no-margin">
+        Olá, <span class="ion-text-capitalize">{{usuario.nome}}!</span>
+      </h5>
+    </ion-text>
+  </ion-toolbar>
+</ion-header>
 
-  <div id="container">
-    <p>iGastei</p>
-  </div>
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title> {{valor_total | currency:'BRL':'symbol':'1.2-2'}} </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <ion-list>
+    <div *ngFor="let gasto of lista_gastos">
+      <!-- <ion-item *ngIf="!gasto.quitada"> -->
+      <ion-item>
+        <ion-label>
+          <h5 class="ion-no-margin">
+            {{ gasto.descricao }}
+            <span *ngIf="gasto.tipo_pagamento === 2">
+              ({{ gasto.parcela_atual }} / {{ gasto.parcelas_totais }})
+            </span>
+          </h5>
+          <p>{{ gasto.data_compra | date:'dd/MM/yyyy' }}</p>
+          <p>{{gasto.banco_display}}</p>
+          <h5>
+            {{ gasto.valor_parcela_atual | currency:'BRL':'symbol':'1.2-2' }}
+          </h5>
+          <p *ngIf="gasto.tipo_pagamento === 2">
+            {{ gasto.valor_total | currency:'BRL':'symbol':'1.2-2' }}
+          </p>
+        </ion-label>
+        <ion-buttons slot="end">
+          <ion-button (click)="excluirGasto(gasto.id)" color="danger">
+            Excluir
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+    </div>
+  </ion-list>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="ion-margin">
+    <ion-fab-button (click)="criarGastos()" color="primary" class="text-center">
+      <h1 class="ion-no-margin">+</h1>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

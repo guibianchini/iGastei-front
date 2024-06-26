@@ -1,0 +1,159 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary" class="ion-margin-2">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Criar Novo Gasto</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="novoGasto" (ngSubmit)="cadastrarGasto()">
+    <ion-item>
+      <ion-label position="floating">Descrição</ion-label>
+      <ion-input formControlName="descricao" type="text"></ion-input>
+      <div
+        *ngIf="novoGasto.get('descricao')?.invalid && (novoGasto.get('descricao')?.dirty || novoGasto.get('descricao')?.touched)"
+      >
+        <ion-text
+          color="danger"
+          *ngIf="novoGasto.get('descricao')?.errors?.['required']"
+          >Campo é obrigatório.</ion-text
+        >
+        <ion-text
+          color="danger"
+          *ngIf="novoGasto.get('descricao')?.errors?.['maxlength']"
+          >Campo não pode ter mais que 100 caracteres.</ion-text
+        >
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Valor Total</ion-label>
+      <ion-input formControlName="valor_total" type="number"></ion-input>
+      <div
+        *ngIf="novoGasto.get('valor_total')?.invalid && (novoGasto.get('valor_total')?.dirty || novoGasto.get('valor_total')?.touched)"
+      >
+        <ion-text
+          color="danger"
+          *ngIf="novoGasto.get('valor_total')?.errors?.['required']"
+          >Campo é obrigatório.</ion-text
+        >
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Data da Compra</ion-label>
+      <ion-datetime-button datetime="datetime"></ion-datetime-button>
+      <ion-modal [keepContentsMounted]="true">
+        <ng-template>
+          <ion-datetime
+            id="datetime"
+            formControlName="data_compra"
+            presentation="date"
+            preferWheel="true"
+          ></ion-datetime>
+        </ng-template>
+      </ion-modal>
+      <div
+        *ngIf="novoGasto.get('data_compra')?.invalid && (novoGasto.get('data_compra')?.dirty || novoGasto.get('data_compra')?.touched)"
+      >
+        <ion-text
+          color="danger"
+          *ngIf="novoGasto.get('data_compra')?.errors?.['required']"
+          >Campo é obrigatório.</ion-text
+        >
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Tipo de Pagamento</ion-label>
+      <ion-select formControlName="tipo_pagamento">
+        <ion-select-option value="1">À vista</ion-select-option>
+        <ion-select-option value="2">Parcelado</ion-select-option>
+        <ion-select-option value="3">Assinatura</ion-select-option>
+      </ion-select>
+      <div
+        *ngIf="novoGasto.get('tipo_pagamento')?.invalid && (novoGasto.get('tipo_pagamento')?.dirty || novoGasto.get('tipo_pagamento')?.touched)"
+      >
+        <ion-text
+          color="danger"
+          *ngIf="novoGasto.get('tipo_pagamento')?.errors?.['required']"
+          >Campo é obrigatório.</ion-text
+        >
+      </div>
+    </ion-item>
+
+    <ion-item *ngIf="novoGasto.get('tipo_pagamento')?.value === '2'">
+      <ion-label>Qtd. Parcelas</ion-label>
+      <ion-input
+        formControlName="parcelas_totais"
+        type="number"
+        inputmode="numeric"
+        pattern="[0-9]*"
+      ></ion-input>
+      <div
+        *ngIf="novoGasto.get('tipo_pagamento')?.value === '2' && novoGasto.get('parcelas_totais')?.touched && !novoGasto.get('parcelas_totais')?.value"
+      >
+        <ion-text color="danger">Campo é obrigatório.</ion-text>
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Banco</ion-label>
+      <ion-select formControlName="banco">
+        <ion-select-option value="1">Nubank</ion-select-option>
+        <ion-select-option value="2">Inter</ion-select-option>
+        <ion-select-option value="3">C6</ion-select-option>
+        <ion-select-option value="4">Neon</ion-select-option>
+        <ion-select-option value="5">PicPay</ion-select-option>
+        <ion-select-option value="6">Banco do Brasil</ion-select-option>
+        <ion-select-option value="7">Outros</ion-select-option>
+        <!-- Adicione mais opções conforme necessário -->
+      </ion-select>
+      <div
+        *ngIf="novoGasto.get('banco')?.invalid && (novoGasto.get('banco')?.dirty || novoGasto.get('banco')?.touched)"
+      >
+        <ion-text
+          color="danger"
+          *ngIf="novoGasto.get('banco')?.errors?.['required']"
+          >Campo é obrigatório.</ion-text
+        >
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Categoria</ion-label>
+      <ion-select formControlName="categoria">
+        <ion-select-option value="1">Estudos</ion-select-option>
+        <ion-select-option value="2">Lazer</ion-select-option>
+        <ion-select-option value="3">Alimentação</ion-select-option>
+        <ion-select-option value="4">Moradia</ion-select-option>
+        <ion-select-option value="5">Transporte</ion-select-option>
+        <ion-select-option value="6">Viagens</ion-select-option>
+        <ion-select-option value="7">Empréstimo</ion-select-option>
+        <ion-select-option value="8">Manutenção</ion-select-option>
+        <ion-select-option value="9">Outros</ion-select-option>
+        <!-- Adicione mais opções conforme necessário -->
+      </ion-select>
+      <div
+        *ngIf="novoGasto.get('categoria')?.invalid && (novoGasto.get('categoria')?.dirty || novoGasto.get('categoria')?.touched)"
+      >
+        <ion-text
+          color="danger"
+          *ngIf="novoGasto.get('categoria')?.errors?.['required']"
+          >Campo é obrigatório.</ion-text
+        >
+      </div>
+    </ion-item>
+
+    <!-- Outros campos necessários para o gasto -->
+
+    <ion-button
+      expand="block"
+      class="ion-padding ion-margin-top"
+      (click)="cadastrarGasto()"
+      >Salvar</ion-button
+    >
+  </form>
+</ion-content>
