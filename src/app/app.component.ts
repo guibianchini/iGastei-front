@@ -19,6 +19,8 @@ export class AppComponent {
   public paginas_menu = [
     { title: 'Início', url: '/home', icon: 'home-outline' },
     { title: 'Novo gasto', url: '/cadastro-gasto', icon: 'add' },
+    { title: 'Compras passadas', url: '/gastos-quitados', icon: 'add' },
+    { title: 'Por Banco', url: '/por-banco', icon: 'add' },
   ];
   
   constructor(

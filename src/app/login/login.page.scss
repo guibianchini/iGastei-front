@@ -1,32 +1,7 @@
-.splash-bg {
-    position: relative;
-    background-size: cover;
-    height: 50%;
-    z-index: 1;
-    background-repeat: repeat-x;
-    animation: animatedBackground 40s linear infinite;
-}
-@keyframes animatedBackground {
-    from { background-position: 0 0; }
-    to { background-position: 100% 0; }
-}
-.splash-info {
-    position: relative;
-    z-index: 2;
-    margin-top: -64px;
-    text-align: center;
-}
-.splash-logo {
-    margin: auto;
-    background-size: 100%;
-    width: 128px;
-    height: 142px;
-}
-.splash-intro {
-    font-size: 18px;
-    max-width: 80%;
-    margin: auto;
-}
-.icon-1-5 {
-    zoom: 1.5;
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 2rem;
+    height: 100vh;
 }

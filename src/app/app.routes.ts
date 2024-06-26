@@ -22,4 +22,12 @@ export const routes: Routes = [
     path: 'editar-gasto',
     loadComponent: () => import('./editar-gasto/editar-gasto.page').then( m => m.EditarGastoPage)
   },
+  {
+    path: 'gastos-quitados',
+    loadComponent: () => import('./gastos-quitados/gastos-quitados.page').then( m => m.GastosQuitadosPage)
+  },
+  {
+    path: 'por-banco',
+    loadComponent: () => import('./por-banco/por-banco.page').then( m => m.PorBancoPage)
+  },
 ];

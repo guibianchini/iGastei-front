@@ -1,3 +1,10 @@
+import { FormsModule } from '@angular/forms';
+import {
+  IonContent,
+  IonHeader,
+  IonTitle,
+  IonToolbar,
+} from '@ionic/angular/standalone';
 import { Storage } from '@ionic/storage';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
@@ -21,14 +28,14 @@ import { Usuario } from '../nucleo/models/usuario.model';
 import { StorageService } from '../nucleo/services/storage-service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+  selector: 'app-gastos-quitados',
+  templateUrl: './gastos-quitados.page.html',
+  styleUrls: ['./gastos-quitados.page.scss'],
   standalone: true,
   imports: [IonicModule, CommonModule, HttpClientModule],
   providers: [HttpClient, Storage, StorageService],
 })
-export class HomePage implements OnInit {
+export class GastosQuitadosPage implements OnInit {
   public usuario: Usuario = new Usuario();
   public lista_gastos: Gasto[] = [];
   public valor_total: number | null = null;
@@ -78,8 +85,8 @@ export class HomePage implements OnInit {
       .get('http://127.0.0.1:8000/gastos/api/', {
         headers: http_headers,
         params: {
-          quitada: false,
-        }
+          quitada: true,
+        },
       })
       .subscribe({
         next: async (resposta: any) => {
@@ -103,61 +110,5 @@ export class HomePage implements OnInit {
           mensagem.present();
         },
       });
-  }
-
-  async criarGastos() {
-    this.controle_navegacao.navigateForward('/cadastro-gasto');
-  }
-
-  async excluirGasto(id: number) {
-    // Inicializa interface com efeito de carregamento
-    const alert = await this.controle_alerta.create({
-      header: 'Confirmação',
-      message: 'Deseja realmente excluir o gasto?',
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-        },
-        {
-          text: 'Confirmar',
-          handler: () => {
-            let http_headers: HttpHeaders = new HttpHeaders({
-              'Content-Type': 'application/json',
-              Authorization: `Token ${this.usuario.token}`,
-            });
-
-            // Deleta instância de gasto via API do sistema web
-            this.http
-              .delete(`http://127.0.0.1:8000/gastos/api/excluir/${id}/`, {
-                headers: http_headers,
-              })
-              .subscribe({
-                next: async (resposta: any) => {
-                  this.consultarGastos();
-                },
-                error: async (erro: any) => {
-                  const mensagem = await this.controle_toast.create({
-                    message: `Falha ao excluir o gasto: ${erro.message}`,
-                    cssClass: 'ion-text-center',
-                    duration: 2000,
-                  });
-                  mensagem.present();
-                },
-              });
-          },
-        },
-      ],
-    });
-    await alert.present();
-  }
-
-  async editarGasto(gasto: Gasto) {
-    let navigationExtras: NavigationExtras = {
-      queryParams: {
-        gasto,
-      },
-    };
-    this.controle_navegacao.navigateForward('/editar-gasto', navigationExtras);
   }
 }

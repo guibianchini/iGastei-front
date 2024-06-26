@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar color="primary" class="ion-margin-2">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Início</ion-title>
+    <ion-text slot="end" class="ion-margin-end">
+      <h5 class="ion-no-margin">
+        Olá, <span class="ion-text-capitalize">{{usuario.nome}}!</span>
+      </h5>
+    </ion-text>
+  </ion-toolbar>
+</ion-header>
+
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title> Por banco </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <ion-list>
+    <div *ngFor="let gasto of lista_gastos">
+      <!-- <ion-item *ngIf="!gasto.quitada"> -->
+      <ion-item>
+        <ion-label>
+          <h5 class="ion-no-margin">Instituição: {{gasto.banco_nome}}</h5>
+          <h5>
+            Valor total: {{ gasto.total_valor| currency:'BRL':'symbol':'1.2-2' }}
+          </h5>
+        </ion-label>
+      </ion-item>
+    </div>
+  </ion-list>
+</ion-content>
