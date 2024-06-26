@@ -1,6 +1,7 @@
 import { Storage } from '@ionic/storage';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { NavigationExtras } from '@angular/router';
 import {
   HttpClient,
   HttpClientModule,
@@ -147,4 +148,12 @@ export class HomePage implements OnInit {
     });
     await alert.present();
   }
+
+  async editarGasto(gasto: Gasto) {
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+          gasto
+      }
+  };
+  this.controle_navegacao.navigateForward('/editar-gasto', navigationExtras);  }
 }

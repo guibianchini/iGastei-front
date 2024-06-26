@@ -3,26 +3,26 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Criar Novo Gasto</ion-title>
+    <ion-title>Editar Gasto</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <form [formGroup]="novoGasto" (ngSubmit)="cadastrarGasto()">
+  <form [formGroup]="gasto" (ngSubmit)="editarGasto()">
     <ion-item>
       <ion-label position="floating">Descrição</ion-label>
       <ion-input formControlName="descricao" type="text"></ion-input>
       <div
-        *ngIf="novoGasto.get('descricao')?.invalid && (novoGasto.get('descricao')?.dirty || novoGasto.get('descricao')?.touched)"
+        *ngIf="gasto.get('descricao')?.invalid && (gasto.get('descricao')?.dirty || gasto.get('descricao')?.touched)"
       >
         <ion-text
           color="danger"
-          *ngIf="novoGasto.get('descricao')?.errors?.['required']"
+          *ngIf="gasto.get('descricao')?.errors?.['required']"
           >Campo é obrigatório.</ion-text
         >
         <ion-text
           color="danger"
-          *ngIf="novoGasto.get('descricao')?.errors?.['maxlength']"
+          *ngIf="gasto.get('descricao')?.errors?.['maxlength']"
           >Campo não pode ter mais que 100 caracteres.</ion-text
         >
       </div>
@@ -32,11 +32,11 @@
       <ion-label position="floating">Valor Total</ion-label>
       <ion-input formControlName="valor_total" type="number"></ion-input>
       <div
-        *ngIf="novoGasto.get('valor_total')?.invalid && (novoGasto.get('valor_total')?.dirty || novoGasto.get('valor_total')?.touched)"
+        *ngIf="gasto.get('valor_total')?.invalid && (gasto.get('valor_total')?.dirty || gasto.get('valor_total')?.touched)"
       >
         <ion-text
           color="danger"
-          *ngIf="novoGasto.get('valor_total')?.errors?.['required']"
+          *ngIf="gasto.get('valor_total')?.errors?.['required']"
           >Campo é obrigatório.</ion-text
         >
       </div>
@@ -56,11 +56,11 @@
         </ng-template>
       </ion-modal>
       <div
-        *ngIf="novoGasto.get('data_compra')?.invalid && (novoGasto.get('data_compra')?.dirty || novoGasto.get('data_compra')?.touched)"
+        *ngIf="gasto.get('data_compra')?.invalid && (gasto.get('data_compra')?.dirty || gasto.get('data_compra')?.touched)"
       >
         <ion-text
           color="danger"
-          *ngIf="novoGasto.get('data_compra')?.errors?.['required']"
+          *ngIf="gasto.get('data_compra')?.errors?.['required']"
           >Campo é obrigatório.</ion-text
         >
       </div>
@@ -74,17 +74,17 @@
         <ion-select-option value="3">Assinatura</ion-select-option>
       </ion-select>
       <div
-        *ngIf="novoGasto.get('tipo_pagamento')?.invalid && (novoGasto.get('tipo_pagamento')?.dirty || novoGasto.get('tipo_pagamento')?.touched)"
+        *ngIf="gasto.get('tipo_pagamento')?.invalid && (gasto.get('tipo_pagamento')?.dirty || gasto.get('tipo_pagamento')?.touched)"
       >
         <ion-text
           color="danger"
-          *ngIf="novoGasto.get('tipo_pagamento')?.errors?.['required']"
+          *ngIf="gasto.get('tipo_pagamento')?.errors?.['required']"
           >Campo é obrigatório.</ion-text
         >
       </div>
     </ion-item>
 
-    <ion-item *ngIf="novoGasto.get('tipo_pagamento')?.value === '2'">
+    <ion-item *ngIf="gasto.get('tipo_pagamento')?.value === '2'">
       <ion-label position="floating">Qtd. Parcelas</ion-label>
       <ion-input
         formControlName="parcelas_totais"
@@ -92,7 +92,7 @@
         pattern="[0-9]*"
       ></ion-input>
       <div
-        *ngIf="novoGasto.get('tipo_pagamento')?.value === '2' && novoGasto.get('parcelas_totais')?.touched && !novoGasto.get('parcelas_totais')?.value"
+        *ngIf="gasto.get('tipo_pagamento')?.value === '2' && gasto.get('parcelas_totais')?.touched && !gasto.get('parcelas_totais')?.value"
       >
         <ion-text color="danger">Campo é obrigatório.</ion-text>
       </div>
@@ -111,11 +111,11 @@
         <!-- Adicione mais opções conforme necessário -->
       </ion-select>
       <div
-        *ngIf="novoGasto.get('banco')?.invalid && (novoGasto.get('banco')?.dirty || novoGasto.get('banco')?.touched)"
+        *ngIf="gasto.get('banco')?.invalid && (gasto.get('banco')?.dirty || gasto.get('banco')?.touched)"
       >
         <ion-text
           color="danger"
-          *ngIf="novoGasto.get('banco')?.errors?.['required']"
+          *ngIf="gasto.get('banco')?.errors?.['required']"
           >Campo é obrigatório.</ion-text
         >
       </div>
@@ -136,11 +136,11 @@
         <!-- Adicione mais opções conforme necessário -->
       </ion-select>
       <div
-        *ngIf="novoGasto.get('categoria')?.invalid && (novoGasto.get('categoria')?.dirty || novoGasto.get('categoria')?.touched)"
+        *ngIf="gasto.get('categoria')?.invalid && (gasto.get('categoria')?.dirty || gasto.get('categoria')?.touched)"
       >
         <ion-text
           color="danger"
-          *ngIf="novoGasto.get('categoria')?.errors?.['required']"
+          *ngIf="gasto.get('categoria')?.errors?.['required']"
           >Campo é obrigatório.</ion-text
         >
       </div>
@@ -151,7 +151,7 @@
     <ion-button
       expand="block"
       class="ion-padding ion-margin-top"
-      (click)="cadastrarGasto()"
+      (click)="editarGasto()"
       >Salvar</ion-button
     >
   </form>

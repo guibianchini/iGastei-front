@@ -39,6 +39,9 @@
           </p>
         </ion-label>
         <ion-buttons slot="end">
+          <ion-button (click)="editarGasto(gasto)" color="primary">
+            Editar
+          </ion-button>
           <ion-button (click)="excluirGasto(gasto.id)" color="danger">
             Excluir
           </ion-button>
