@@ -1,0 +1,7 @@
+{
+  "name": "iGastei",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
